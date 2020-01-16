@@ -3,6 +3,7 @@
 # Harvard University, Martinos Center for Biomedical Imaging 
 # Aalto University, Department of Computer Science
 
+# $ py setup.py build install
 
 # Use old Python build system, otherwise the extension libraries cannot be found. FIXME 
 import sys
@@ -26,13 +27,13 @@ setup(
               'occiput.Reconstruction', 
               'occiput.Reconstruction.PET', 
               'occiput.Reconstruction.SPECT', 
-              'occiput.Reconstruction.CT', 
+#              'occiput.Reconstruction.CT', 
               'occiput.Reconstruction.MR',
               'occiput.Transformation', 
               'occiput.Registration',
-              'occiput.Registration.Affine',
+#              'occiput.Registration.Affine',
               'occiput.Registration.TranslationRotation',
-              'occiput.Classification', 
+#              'occiput.Classification', 
               'occiput.DataSources', 
               'occiput.DataSources.Synthetic', 
               'occiput.DataSources.FileSources', 
