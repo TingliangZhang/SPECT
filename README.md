@@ -57,3 +57,15 @@ Examples and demos of the features of Occiput are in the /occiput/notebooks fold
 ## Website
 
 For more information see [occiput.io](http://tomographylab.scienceontheweb.net/).
+
+
+
+## 问题
+
+NiftyPy安装不成功
+
+可能解决办法
+
+[Install Python Module](http://niftyrec.scienceontheweb.net/wiki//index.php?title=Install_NiftyRec#Install_Python_Module_2)
+
+仍未解决
