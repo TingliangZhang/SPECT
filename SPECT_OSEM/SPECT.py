@@ -37,13 +37,7 @@ p1 = pro[:,70,:]
 #plt.imshow(p1,cmap="gray")
 fft_p = np.zeros((60,128))
 #engine.imshow(engine.iradon(matlab.double(list_p),0:59),[])
-def return_x(a,c):
-    x_m = y_m=np.linspace(-64,64,129,dtype="float32")
-    y_i = a*x_m+c
-    x_i = (y_m-c)/a
-    x_i = x_i[(x_i>=-64) & (x_i<=64)]
-    y_i = y_i[(y_i>=-64) & (y_i<=64)]
-    return x_i,y_i
+
 
 
 def get_spect_tran_m(theta):
@@ -79,9 +73,9 @@ def get_spect_tran_m(theta):
                         pos = (x+63)*128+y+63
                         c[pos,c_y] = 1
 
-
-
     return c
+
+
 theta_range = np.arange(0,60,dtype="float32")*6
 bias = 1e-6
 theta_range[np.linspace(0,45,4,dtype = "int")] = theta_range[np.linspace(0,45,4,dtype="int")] + bias
