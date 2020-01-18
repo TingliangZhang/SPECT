@@ -95,12 +95,6 @@ for i in range(0,59):
     total_p[range1:range2] = p1[i]
 
 print(total_c.shape)
-# np.savetxt("total_c.csv", total_c, delimiter=",")
-
-
-# b = np.loadtxt("total_c.csv", delimiter=",")
-# print(max(b.reshape(-1)))  #打印b数组中的最大值
-# print(min(b.reshape(-1)))  #打印b数组中的最小值
 
 print(theta_range)
 
@@ -112,7 +106,7 @@ print(mm==6)
 iter = 100
 f0 = np.ones((1,end),dtype="float32").squeeze(0)
 temp = np.ones((1,end),dtype="float32").squeeze(0)
-from tqdm import tqdm
+
 for i in tqdm(range(0,iter)):
     temp= total_c.dot(total_p/(f0.dot(total_c+bias)))*(f0/np.sum(total_c+bias,axis=1))
     f0 = temp
@@ -139,3 +133,34 @@ for i in tqdm(range(0,iter)):
 plt.imshow(f0.reshape(128,128))
 
 plt.show()
+
+
+osem_spect = np.zeros((128,128,128),dtype="float32")
+def OSEM_SPECT(i,idata):
+    pro_splice = pro[:,i,:]
+    total_p = pro_splice.reshape(1,128*60).squeeze(0)
+    f0 = np.ones((1,end),dtype="float32").squeeze(0)
+    temp = np.ones((1,end),dtype="float32").squeeze(0)
+    for i in range(0,iter):
+        temp= total_c[:,a1:a2].dot(total_p[a1:a2]/(f0.dot(total_c[:,a1:a2]+bias)))*(f0/np.sum(total_c[:,a1:a2]+bias,axis=1))
+        f0 = temp
+        temp= total_c[:,a2:a3].dot(total_p[a2:a3]/(f0.dot(total_c[:,a2:a3]+bias)))*(f0/np.sum(total_c[:,a2:a3]+bias,axis=1))
+        f0 = temp
+        temp= total_c[:,a3:a4].dot(total_p[a3:a4]/(f0.dot(total_c[:,a3:a4]+bias)))*(f0/np.sum(total_c[:,a3:a4]+bias,axis=1))
+        f0 = temp
+        temp= total_c[:,a4:a5].dot(total_p[a4:a5]/(f0.dot(total_c[:,a4:a5]+bias)))*(f0/np.sum(total_c[:,a4:a5]+bias,axis=1))
+        f0 = temp
+    return f0.reshape(128,128)
+for i in tqdm(range(0,128)):
+    osem_spect[i] = OSEM_SPECT(i,4)
+
+
+
+
+
+plt.imshow(osem_spect[:,64,:])
+osem_spect.tofile("osem_mine.raw")
+
+osemData = np.fromfile('OSEM_recon.raw', dtype="float32")
+osem = osemData.reshape(128,128,128)
+plt.imshow(osem[126,:,:])
