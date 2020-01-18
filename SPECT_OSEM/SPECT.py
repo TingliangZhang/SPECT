@@ -109,23 +109,33 @@ print(m[8257,64])
 mm = theta_range[1]
 print(mm==6)
 
-p1 = pro[:,20,:]
-#plt.imshow(p1,cmap="gray")
-it = 10
-f0 = np.ones((1,end),dtype="float64").squeeze(0)
-def iter_osem_spect(p,f,i):
-    num = str(i)
-    c = dic_c[num]
-    pj = p/(f.dot(c)+bias)
-    temp =c.dot(pj)*(f/np.sum(c+bias,axis=1))
-    return temp
+iter = 100
+f0 = np.ones((1,end),dtype="float32").squeeze(0)
+temp = np.ones((1,end),dtype="float32").squeeze(0)
+from tqdm import tqdm
+for i in tqdm(range(0,iter)):
+    temp= total_c.dot(total_p/(f0.dot(total_c+bias)))*(f0/np.sum(total_c+bias,axis=1))
+    f0 = temp
+plt.imshow(f0.reshape(128,128))
+plt.colorbar()
 
-
-
-for i in tqdm(range(0,it)):
-    for j in range(0,59):
-        temp = iter_osem_spect(p1[j],f0,j)
-        f0 = temp
+f0 = np.ones((1,end),dtype="float32").squeeze(0)
+temp = np.ones((1,end),dtype="float32").squeeze(0)
+a1 = 0
+a2 = 128*15
+a3 = 128*30
+a4 = 128*45
+a5 = 128*60
+iter = 4
+for i in tqdm(range(0,iter)):
+    temp= total_c[:,a1:a2].dot(total_p[a1:a2]/(f0.dot(total_c[:,a1:a2]+bias)))*(f0/np.sum(total_c[:,a1:a2]+bias,axis=1))
+    f0 = temp
+    temp= total_c[:,a2:a3].dot(total_p[a2:a3]/(f0.dot(total_c[:,a2:a3]+bias)))*(f0/np.sum(total_c[:,a2:a3]+bias,axis=1))
+    f0 = temp
+    temp= total_c[:,a3:a4].dot(total_p[a3:a4]/(f0.dot(total_c[:,a3:a4]+bias)))*(f0/np.sum(total_c[:,a3:a4]+bias,axis=1))
+    f0 = temp
+    temp= total_c[:,a4:a5].dot(total_p[a4:a5]/(f0.dot(total_c[:,a4:a5]+bias)))*(f0/np.sum(total_c[:,a4:a5]+bias,axis=1))
+    f0 = temp
 plt.imshow(f0.reshape(128,128))
 
 plt.show()
