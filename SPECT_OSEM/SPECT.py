@@ -39,10 +39,11 @@ fft_p = np.zeros((60,128))
 #engine.imshow(engine.iradon(matlab.double(list_p),0:59),[])
 
 
-
+# 旋转theta角时的 SPECT 变换 
 def get_spect_tran_m(theta):
     #rotate detector theta from initial ang
     c = np.zeros((end,128),dtype="float32")
+    # i = -63.5 -62.5 ... 63.5
     for i in np.linspace(-63.5,63.5,128):
         ang = math.pi-theta*math.pi/180
         a = math.tan(ang)
