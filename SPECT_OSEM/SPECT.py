@@ -53,12 +53,7 @@ def get_spect_tran_m(theta):
                 for y in range(-63,65):
                     x2 = x-1
                     y2 = y-1
-                    # if (i==0.5) & (theta==6) & (x==1) & (y==2):
-                        
-                    #     print(a)
-                    #     print(b)
-                    #     print(a*x+b-y)
-                    #     print(a*x2+b-y2)
+
                     if (a*x+b-y)*(a*x2+b-y2) <=0:
                         pos = (x+63)*128+y+63
                         c[pos,c_y] = 1
@@ -132,3 +127,5 @@ for i in tqdm(range(0,it)):
         temp = iter_osem_spect(p1[j],f0,j)
         f0 = temp
 plt.imshow(f0.reshape(128,128))
+
+plt.show()
